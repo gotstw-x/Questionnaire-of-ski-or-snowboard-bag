@@ -1,135 +1,748 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Ski Bag Survey</title>
-<style>
-body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; }
-h1 { text-align: center; }
-.question { margin-bottom: 25px; }
-.options label { display: block; margin: 5px 0; }
-button { padding: 12px 20px; font-size: 16px; }
-.lang-switch { text-align: right; margin-bottom: 20px; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ski Gear Transport Survey</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #dbe4ee;
+      --primary: #184e77;
+      --primary-2: #1e6091;
+      --accent: #e7f2fb;
+      --danger: #a61b1b;
+      --shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #eaf4fb 0%, var(--bg) 35%, #f7fafc 100%);
+      color: var(--text);
+    }
+
+    .wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 32px 20px 80px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: white;
+      border-radius: 28px;
+      padding: 34px 28px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .hero-copy {
+      flex: 1 1 560px;
+    }
+
+    .lang-box {
+      flex: 0 0 200px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 16px;
+      padding: 14px;
+      backdrop-filter: blur(4px);
+    }
+
+    .lang-box label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      color: rgba(255,255,255,0.95);
+      font-weight: 700;
+    }
+
+    .lang-box select {
+      width: 100%;
+      appearance: none;
+      border: 0;
+      padding: 11px 12px;
+      border-radius: 12px;
+      font: inherit;
+      color: var(--text);
+      background: white;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.1;
+    }
+
+    .hero p {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.65;
+      max-width: 760px;
+      color: rgba(255,255,255,0.94);
+    }
+
+    form {
+      display: grid;
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px 20px;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin: 0 0 14px;
+      color: var(--primary);
+    }
+
+    .question {
+      padding: 14px 0 6px;
+      border-top: 1px solid #edf2f7;
+    }
+
+    .question:first-of-type { border-top: 0; padding-top: 0; }
+
+    .q-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0 0 12px;
+      line-height: 1.5;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin: -4px 0 12px;
+      line-height: 1.5;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    label.option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fbfdff;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    label.option:hover {
+      border-color: #aac8df;
+      background: var(--accent);
+    }
+
+    input[type="radio"], input[type="checkbox"] {
+      margin-top: 2px;
+      transform: scale(1.06);
+      accent-color: var(--primary-2);
+      flex: 0 0 auto;
+    }
+
+    input[type="text"], input[type="email"], textarea, select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      font: inherit;
+      color: var(--text);
+      background: white;
+    }
+
+    textarea { min-height: 96px; resize: vertical; }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .subcard {
+      background: #f9fbfe;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 10px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      padding-top: 6px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: white;
+      padding: 13px 22px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    button:hover { filter: brightness(1.03); }
+
+    .secondary {
+      background: white;
+      color: var(--primary);
+      border: 1px solid var(--line);
+      box-shadow: none;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .hidden { display: none !important; }
+
+    .success {
+      display: none;
+      background: #ecfdf5;
+      border: 1px solid #b7e4c7;
+      color: #166534;
+      border-radius: 16px;
+      padding: 16px 18px;
+      line-height: 1.6;
+      box-shadow: var(--shadow);
+    }
+
+    .error {
+      color: var(--danger);
+      font-size: 0.92rem;
+      margin-top: 8px;
+      display: none;
+    }
+
+    @media (max-width: 720px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .hero { padding: 26px 20px; }
+      .card { padding: 18px 16px; }
+      label.option { padding: 11px 12px; }
+      .hero-top { flex-direction: column; }
+      .lang-box { width: 100%; }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero-top">
+        <div class="hero-copy">
+          <h1 id="heroTitle">Ski Gear Transport Survey</h1>
+          <p id="heroDescription">
+            We are exploring a power-assisted / auto-follow ski bag concept for airports and ski resorts.
+            This survey takes about 3–4 minutes. Your feedback will help us understand real pain points,
+            preferred features, and acceptable price ranges.
+          </p>
+        </div>
+        <div class="lang-box">
+          <label for="languageSelect" id="languageLabel">Language / 语言</label>
+          <select id="languageSelect" aria-label="Language selector">
+            <option value="en">English</option>
+            <option value="zh">中文</option>
+          </select>
+        </div>
+      </div>
+    </section>
 
-<div class="lang-switch">
-<select id="lang">
-<option value="zh">中文</option>
-<option value="en">English</option>
-</select>
-</div>
+    <div id="successMessage" class="success">
+      Thank you — your response has been submitted successfully.
+    </div>
 
-<h1 id="title"></h1>
+    <form id="surveyForm" action="https://formspree.io/f/xaqlnjyw" method="POST">
+      <input type="hidden" name="selected_language" id="selectedLanguage" value="en" />
 
-<form action="https://formspree.io/f/xaqlnjyw" method="POST">
+      <div class="card">
+        <h2 class="section-title" id="section1Title">1. Basic screening</h2>
 
-<div class="question">
-<p id="q1"></p>
-<div class="options">
-<label><input type="radio" name="q1"> <span data-zh="雪季几乎每天" data-en="Almost every day"></span></label>
-<label><input type="radio" name="q1"> <span data-zh="10–30天" data-en="10–30 days"></span></label>
-<label><input type="radio" name="q1"> <span data-zh="10天以内" data-en="Less than 10 days"></span></label>
-<label><input type="radio" name="q1"> <span data-zh="1次或不滑" data-en="Once or not at all"></span></label>
-</div>
-</div>
+        <div class="question">
+          <p class="q-title" id="q1Title">1. How often do you ski / snowboard?</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="ski_frequency" value="Every day in season" required><span data-i18n="q1o1">Every day in the ski season</span></label>
+            <label class="option"><input type="radio" name="ski_frequency" value="10-30 days"><span data-i18n="q1o2">10–30 days in the ski season</span></label>
+            <label class="option"><input type="radio" name="ski_frequency" value="Within 10 days"><span data-i18n="q1o3">10 days or fewer in the ski season</span></label>
+            <label class="option"><input type="radio" name="ski_frequency" value="One time or do not ski"><span data-i18n="q1o4">1 time only / do not ski</span></label>
+          </div>
+        </div>
 
-<div class="question">
-<p id="q2"></p>
-<div class="options">
-<label><input type="radio" name="q2"> <span data-zh="自带雪具" data-en="Bring my own gear"></span></label>
-<label><input type="radio" name="q2"> <span data-zh="寄存雪场" data-en="Store at resort"></span></label>
-<label><input type="radio" name="q2"> <span data-zh="租赁雪具" data-en="Rent gear"></span></label>
-</div>
-</div>
+        <div class="question">
+          <p class="q-title" id="q2Title">2. How do you usually handle your ski gear?</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="gear_usage" value="Bring my own gear" required><span data-i18n="q2o1">Bring my own gear when I travel</span></label>
+            <label class="option"><input type="radio" name="gear_usage" value="Store gear at resort"><span data-i18n="q2o2">Store my gear at the resort</span></label>
+            <label class="option"><input type="radio" name="gear_usage" value="Rent gear"><span data-i18n="q2o3">Rent gear</span></label>
+          </div>
+        </div>
+      </div>
 
-<div class="question">
-<p id="q11"></p>
-<div class="options" id="multi">
-<label><input type="checkbox" name="q11"> <span data-zh="电动助力" data-en="Power assist"></span></label>
-<label><input type="checkbox" name="q11"> <span data-zh="自动跟随" data-en="Auto-follow"></span></label>
-<label><input type="checkbox" name="q11"> <span data-zh="都可以" data-en="Both"></span></label>
-<label><input type="checkbox" name="q11"> <span data-zh="都不需要" data-en="None"></span></label>
-</div>
-</div>
+      <div class="card" id="usageSection">
+        <h2 class="section-title" id="section2Title">2. Transport scenarios</h2>
 
-<div class="question">
-<p id="q_price"></p>
-<div class="options">
-<label><input type="radio" name="price_limit"> $300</label>
-<label><input type="radio" name="price_limit"> $500</label>
-<label><input type="radio" name="price_limit"> $700</label>
-</div>
-</div>
+        <div class="question">
+          <p class="q-title" id="q3Title">3. In which situations do you need to carry or roll your ski bag? <span class="note" id="q3Note">(Select all that apply)</span></p>
+          <div class="options">
+            <label class="option"><input type="checkbox" name="transport_scenarios" value="Airport parking to check-in"><span data-i18n="q3o1">Airport: parking / curbside to check-in or bag drop</span></label>
+            <label class="option"><input type="checkbox" name="transport_scenarios" value="Airport baggage claim to exit"><span data-i18n="q3o2">Airport: baggage claim to exit / pickup area</span></label>
+            <label class="option"><input type="checkbox" name="transport_scenarios" value="Resort parking to lift or lodge"><span data-i18n="q3o3">Ski resort: parking lot to lift / lodge</span></label>
+            <label class="option"><input type="checkbox" name="transport_scenarios" value="Drop-off to gear area"><span data-i18n="q3o4">Ski resort: drop-off area to gear rack / lodge</span></label>
+            <label class="option"><input type="checkbox" name="transport_scenarios" value="Hotel or Airbnb to resort"><span data-i18n="q3o5">Hotel / Airbnb to resort</span></label>
+            <label class="option"><input type="checkbox" name="transport_scenarios" value="Other"><span data-i18n="other">Other</span></label>
+          </div>
+          <div class="subcard">
+            <input type="text" name="transport_scenarios_other" id="transportOther" placeholder="If other, please specify" />
+          </div>
+        </div>
 
-<div class="question">
-<p id="q_test"></p>
-<div class="options">
-<label><input type="radio" name="test"> <span data-zh="愿意" data-en="Yes"></span></label>
-<label><input type="radio" name="test"> <span data-zh="不愿意" data-en="No"></span></label>
-</div>
-</div>
+        <div class="question">
+          <p class="q-title" id="q4Title">4. How far do you usually need to move your ski bag in one trip?</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="distance" value="Within 100 m" required><span data-i18n="q4o1">Within 100 m / 328 ft</span></label>
+            <label class="option"><input type="radio" name="distance" value="100-800 m"><span data-i18n="q4o2">100–800 m / 328–2,625 ft</span></label>
+            <label class="option"><input type="radio" name="distance" value=">800 m"><span data-i18n="q4o3">More than 800 m / 2,625+ ft</span></label>
+            <label class="option"><input type="radio" name="distance" value="Not sure"><span data-i18n="q4o4">Not sure</span></label>
+          </div>
+        </div>
 
-<button type="submit" id="submitBtn"></button>
+        <div class="question">
+          <p class="q-title" id="q5Title">5. About how heavy is your ski bag?</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="bag_weight" value="Under 10 kg" required><span data-i18n="q5o1">Under 10 kg / 22 lb</span></label>
+            <label class="option"><input type="radio" name="bag_weight" value="10-25 kg"><span data-i18n="q5o2">10–25 kg / 22–55 lb</span></label>
+            <label class="option"><input type="radio" name="bag_weight" value=">25 kg"><span data-i18n="q5o3">More than 25 kg / 55+ lb</span></label>
+            <label class="option"><input type="radio" name="bag_weight" value="Not sure but feels heavy"><span data-i18n="q5o4">Not sure, but it feels heavy</span></label>
+          </div>
+        </div>
 
-</form>
+        <div class="question">
+          <p class="q-title" id="q6Title">6. Which carrying scenario is the most frustrating for you?</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="most_painful_scene" value="Dragging at airport" required><span data-i18n="q6o1">Dragging it through the airport</span></label>
+            <label class="option"><input type="radio" name="most_painful_scene" value="Parking lot to lift"><span data-i18n="q6o2">From the resort parking lot to the lift / lodge</span></label>
+            <label class="option"><input type="radio" name="most_painful_scene" value="Loading into vehicle"><span data-i18n="q6o3">Loading it into / out of a car</span></label>
+            <label class="option"><input type="radio" name="most_painful_scene" value="Other"><span data-i18n="other">Other</span></label>
+          </div>
+          <div class="subcard">
+            <input type="text" name="most_painful_scene_other" id="sceneOther" placeholder="If other, please specify" />
+          </div>
+        </div>
+      </div>
 
-<script>
-const texts = {
-zh: {
-title: "雪板包运输调研",
-q1: "1. 你的滑雪频率是？",
-q2: "2. 你通常如何使用雪具？",
-q11: "3. 你更偏好哪些功能？（最多选2个）",
-q_price: "4. 该产品价格超过多少你可能不考虑购买？",
-q_test: "5. 你是否愿意参与测试？",
-submit: "提交"
-},
-en: {
-title: "Ski Bag Transport Survey",
-q1: "1. How often do you ski?",
-q2: "2. How do you usually use ski gear?",
-q11: "3. Which features do you prefer? (Select up to 2)",
-q_price: "4. At what price would you likely NOT consider buying?",
-q_test: "5. Would you join product testing?",
-submit: "Submit"
-}
-};
+      <div class="card" id="painSection">
+        <h2 class="section-title" id="section3Title">3. Pain points</h2>
 
-function switchLang(lang){
-document.getElementById("title").innerText = texts[lang].title;
-document.getElementById("q1").innerText = texts[lang].q1;
-document.getElementById("q2").innerText = texts[lang].q2;
-document.getElementById("q11").innerText = texts[lang].q11;
-document.getElementById("q_price").innerText = texts[lang].q_price;
-document.getElementById("q_test").innerText = texts[lang].q_test;
-document.getElementById("submitBtn").innerText = texts[lang].submit;
+        <div class="question">
+          <p class="q-title" id="q7Title">7. Overall, how difficult is it to move your ski bag?</p>
+          <p class="hint" id="q7Hint">1 = very easy, 5 = very painful</p>
+          <div class="options grid-2">
+            <label class="option"><input type="radio" name="pain_score" value="1" required><span>1</span></label>
+            <label class="option"><input type="radio" name="pain_score" value="2"><span>2</span></label>
+            <label class="option"><input type="radio" name="pain_score" value="3"><span>3</span></label>
+            <label class="option"><input type="radio" name="pain_score" value="4"><span>4</span></label>
+            <label class="option"><input type="radio" name="pain_score" value="5"><span>5</span></label>
+          </div>
+        </div>
 
-document.querySelectorAll("span[data-zh]").forEach(el=>{
-el.innerText = el.getAttribute("data-"+lang);
-});
-}
+        <div class="question">
+          <p class="q-title" id="q8Title">8. What are the biggest issues you face? <span class="note" id="q8Note">(Choose up to 3)</span></p>
+          <div class="options">
+            <label class="option"><input type="checkbox" name="pain_points" value="Too heavy"><span data-i18n="q8o1">Too heavy / physically tiring</span></label>
+            <label class="option"><input type="checkbox" name="pain_points" value="Snow water slope resistance"><span data-i18n="q8o2">Snow / water / slopes create resistance</span></label>
+            <label class="option"><input type="checkbox" name="pain_points" value="Walking in ski boots"><span data-i18n="q8o3">Walking in ski boots is difficult</span></label>
+            <label class="option"><input type="checkbox" name="pain_points" value="Bag too long"><span data-i18n="q8o4">The bag is long and hard to control</span></label>
+            <label class="option"><input type="checkbox" name="pain_points" value="Uphill difficulty"><span data-i18n="q8o5">Going uphill is difficult</span></label>
+            <label class="option"><input type="checkbox" name="pain_points" value="Downhill unstable"><span data-i18n="q8o6">Going downhill feels unstable</span></label>
+            <label class="option"><input type="checkbox" name="pain_points" value="Crowded areas"><span data-i18n="q8o7">It is hard to navigate crowded areas</span></label>
+            <label class="option"><input type="checkbox" name="pain_points" value="Other"><span data-i18n="other">Other</span></label>
+          </div>
+          <div class="subcard">
+            <input type="text" name="pain_points_other" id="painOther" placeholder="If other, please specify" />
+          </div>
+          <div class="error" id="painError">Please select up to 3 options only.</div>
+        </div>
 
-document.getElementById("lang").addEventListener("change", e=>{
-switchLang(e.target.value);
-});
+        <div class="question">
+          <p class="q-title" id="q9Title">9. How much do these issues affect your experience?</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="impact_level" value="Clearly affects experience" required><span data-i18n="q9o1">They clearly affect my experience and are frustrating</span></label>
+            <label class="option"><input type="radio" name="impact_level" value="Some inconvenience"><span data-i18n="q9o2">They are inconvenient but manageable</span></label>
+            <label class="option"><input type="radio" name="impact_level" value="Little impact"><span data-i18n="q9o3">They have little impact</span></label>
+          </div>
+        </div>
+      </div>
 
-switchLang("zh");
+      <div class="card">
+        <h2 class="section-title" id="section4Title">4. Product concept test</h2>
 
-// 限制最多选2个
-document.querySelectorAll('#multi input').forEach(box=>{
-box.addEventListener('change',()=>{
-let checked = document.querySelectorAll('#multi input:checked');
-if(checked.length > 2){
-box.checked = false;
-alert("最多选择2项 / Max 2 options");
-}
-});
-});
-</script>
+        <div class="question">
+          <p class="q-title" id="conceptTitle">Concept</p>
+          <p class="hint" id="conceptHint">A power-assisted / auto-follow ski bag that helps you move ski gear through airports and ski resorts with minimal physical effort.</p>
+        </div>
 
+        <div class="question">
+          <p class="q-title" id="q10Title">10. How interested are you in this product?</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="interest" value="Very interested" required><span data-i18n="q10o1">Very interested</span></label>
+            <label class="option"><input type="radio" name="interest" value="Somewhat interested"><span data-i18n="q10o2">Somewhat interested</span></label>
+            <label class="option"><input type="radio" name="interest" value="Neutral"><span data-i18n="q10o3">Neutral</span></label>
+            <label class="option"><input type="radio" name="interest" value="Not interested"><span data-i18n="q10o4">Not interested</span></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <p class="q-title" id="q11Title">11. Which version would you be interested in? <span class="note" id="q11Note">(Select all that apply)</span></p>
+          <div class="options">
+            <label class="option"><input type="checkbox" name="preferred_mode" value="Power assist"><span data-i18n="q11o1">I pull it, but it provides power assist</span></label>
+            <label class="option"><input type="checkbox" name="preferred_mode" value="Auto follow"><span data-i18n="q11o2">It can automatically follow me</span></label>
+            <label class="option"><input type="checkbox" name="preferred_mode" value="Both"><span data-i18n="q11o3">Both would be valuable</span></label>
+            <label class="option"><input type="checkbox" name="preferred_mode" value="Neither"><span data-i18n="q11o4">Neither</span></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <p class="q-title" id="q12Title">12. Where would you most want to use this product? <span class="note" id="q12Note">(Choose up to 2)</span></p>
+          <div class="options">
+            <label class="option"><input type="checkbox" name="preferred_locations" value="Airport"><span data-i18n="q12o1">Airport</span></label>
+            <label class="option"><input type="checkbox" name="preferred_locations" value="Resort entrance"><span data-i18n="q12o2">Ski resort entrance</span></label>
+            <label class="option"><input type="checkbox" name="preferred_locations" value="Parking lot"><span data-i18n="q12o3">Parking lot</span></label>
+            <label class="option"><input type="checkbox" name="preferred_locations" value="Everywhere"><span data-i18n="q12o4">Everywhere above</span></label>
+          </div>
+          <div class="error" id="locationError">Please select up to 2 options only.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="section-title" id="section5Title">5. Price sensitivity</h2>
+
+        <div class="question">
+          <p class="q-title" id="q13Title">13. Above what price would you probably not consider buying this product?</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="price_ceiling" value="$300" required><span data-i18n="q13o1">Over $300</span></label>
+            <label class="option"><input type="radio" name="price_ceiling" value="$500"><span data-i18n="q13o2">Over $500</span></label>
+            <label class="option"><input type="radio" name="price_ceiling" value="$700"><span data-i18n="q13o3">Over $700</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="section-title" id="section6Title">6. Testing interest</h2>
+
+        <div class="question">
+          <p class="q-title" id="q14Title">14. If this product enters a test phase, would you be willing to try it?</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="test_interest" value="Yes" required><span data-i18n="q14o1">Yes, I am willing to join a test</span></label>
+            <label class="option"><input type="radio" name="test_interest" value="No"><span data-i18n="q14o2">No</span></label>
+          </div>
+        </div>
+
+        <div class="question" id="contactSection">
+          <p class="q-title" id="contactTitle">Contact information <span class="note" id="contactNote">(optional unless you selected “Yes” above)</span></p>
+          <div class="grid-2">
+            <input type="text" name="contact_name" id="contactName" placeholder="Name" />
+            <input type="email" name="contact_email" id="contactEmail" placeholder="Email" />
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="section-title" id="section7Title">7. User profile</h2>
+
+        <div class="question">
+          <p class="q-title" id="q15Title">15. What is your skiing / snowboarding level?</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="skill_level" value="Beginner" required><span data-i18n="q15o1">Beginner</span></label>
+            <label class="option"><input type="radio" name="skill_level" value="Intermediate"><span data-i18n="q15o2">Intermediate</span></label>
+            <label class="option"><input type="radio" name="skill_level" value="Advanced"><span data-i18n="q15o3">Advanced</span></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <p class="q-title" id="q16Title">16. What is your primary trip mode for ski travel?</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="travel_mode" value="Mostly flights" required><span data-i18n="q16o1">Mostly flights</span></label>
+            <label class="option"><input type="radio" name="travel_mode" value="Mostly driving"><span data-i18n="q16o2">Mostly driving</span></label>
+            <label class="option"><input type="radio" name="travel_mode" value="Mixed"><span data-i18n="q16o3">Mixed</span></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <p class="q-title" id="q17Title">17. Age range</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="age_range" value="18-25" required><span>18–25</span></label>
+            <label class="option"><input type="radio" name="age_range" value="26-30"><span>26–30</span></label>
+            <label class="option"><input type="radio" name="age_range" value="31-40"><span>31–40</span></label>
+            <label class="option"><input type="radio" name="age_range" value="40+"><span>40+</span></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <p class="q-title" id="q18Title">18. Annual income <span class="note" id="q18Note">(optional)</span></p>
+          <div class="options">
+            <label class="option"><input type="radio" name="income" value="<50k"><span data-i18n="q18o1">Under $50k</span></label>
+            <label class="option"><input type="radio" name="income" value="50-100k"><span data-i18n="q18o2">$50k–100k</span></label>
+            <label class="option"><input type="radio" name="income" value="100-200k"><span data-i18n="q18o3">$100k–200k</span></label>
+            <label class="option"><input type="radio" name="income" value=">200k"><span data-i18n="q18o4">Above $200k</span></label>
+          </div>
+        </div>
+
+        <div class="question">
+          <p class="q-title" id="feedbackTitle">Anything else you want us to know?</p>
+          <textarea name="open_feedback" id="feedbackTextarea" placeholder="Share any extra thoughts, must-have features, or concerns..."></textarea>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit" id="submitButton">Submit survey</button>
+        <button type="reset" class="secondary" id="resetButton">Reset</button>
+      </div>
+      <p class="note" id="setupNote">Setup note: replace the <strong>Formspree</strong> form URL in the <code>&lt;form action&gt;</code> with your own endpoint before deploying.</p>
+    </form>
+  </div>
+
+  <script>
+    const translations = {
+      en: {
+        title: 'Ski Gear Transport Survey',
+        desc: 'We are exploring a power-assisted / auto-follow ski bag concept for airports and ski resorts. This survey takes about 3–4 minutes. Your feedback will help us understand real pain points, preferred features, and acceptable price ranges.',
+        languageLabel: 'Language / 语言',
+        success: 'Thank you — your response has been submitted successfully.',
+        section1: '1. Basic screening',
+        q1: '1. How often do you ski / snowboard?',
+        q2: '2. How do you usually handle your ski gear?',
+        q1o1: 'Every day in the ski season', q1o2: '10–30 days in the ski season', q1o3: '10 days or fewer in the ski season', q1o4: '1 time only / do not ski',
+        q2o1: 'Bring my own gear when I travel', q2o2: 'Store my gear at the resort', q2o3: 'Rent gear',
+        section2: '2. Transport scenarios',
+        q3: '3. In which situations do you need to carry or roll your ski bag?', q3note: '(Select all that apply)',
+        q3o1: 'Airport: parking / curbside to check-in or bag drop', q3o2: 'Airport: baggage claim to exit / pickup area', q3o3: 'Ski resort: parking lot to lift / lodge', q3o4: 'Ski resort: drop-off area to gear rack / lodge', q3o5: 'Hotel / Airbnb to resort',
+        other: 'Other', transportOther: 'If other, please specify',
+        q4: '4. How far do you usually need to move your ski bag in one trip?', q4o1: 'Within 100 m / 328 ft', q4o2: '100–800 m / 328–2,625 ft', q4o3: 'More than 800 m / 2,625+ ft', q4o4: 'Not sure',
+        q5: '5. About how heavy is your ski bag?', q5o1: 'Under 10 kg / 22 lb', q5o2: '10–25 kg / 22–55 lb', q5o3: 'More than 25 kg / 55+ lb', q5o4: 'Not sure, but it feels heavy',
+        q6: '6. Which carrying scenario is the most frustrating for you?', q6o1: 'Dragging it through the airport', q6o2: 'From the resort parking lot to the lift / lodge', q6o3: 'Loading it into / out of a car', sceneOther: 'If other, please specify',
+        section3: '3. Pain points',
+        q7: '7. Overall, how difficult is it to move your ski bag?', q7hint: '1 = very easy, 5 = very painful',
+        q8: '8. What are the biggest issues you face?', q8note: '(Choose up to 3)', q8o1: 'Too heavy / physically tiring', q8o2: 'Snow / water / slopes create resistance', q8o3: 'Walking in ski boots is difficult', q8o4: 'The bag is long and hard to control', q8o5: 'Going uphill is difficult', q8o6: 'Going downhill feels unstable', q8o7: 'It is hard to navigate crowded areas', painOther: 'If other, please specify', painError: 'Please select up to 3 options only.',
+        q9: '9. How much do these issues affect your experience?', q9o1: 'They clearly affect my experience and are frustrating', q9o2: 'They are inconvenient but manageable', q9o3: 'They have little impact',
+        section4: '4. Product concept test', conceptTitle: 'Concept', conceptHint: 'A power-assisted / auto-follow ski bag that helps you move ski gear through airports and ski resorts with minimal physical effort.',
+        q10: '10. How interested are you in this product?', q10o1: 'Very interested', q10o2: 'Somewhat interested', q10o3: 'Neutral', q10o4: 'Not interested',
+        q11: '11. Which version would you be interested in?', q11note: '(Select all that apply)', q11o1: 'I pull it, but it provides power assist', q11o2: 'It can automatically follow me', q11o3: 'Both would be valuable', q11o4: 'Neither',
+        q12: '12. Where would you most want to use this product?', q12note: '(Choose up to 2)', q12o1: 'Airport', q12o2: 'Ski resort entrance', q12o3: 'Parking lot', q12o4: 'Everywhere above', locationError: 'Please select up to 2 options only.',
+        section5: '5. Price sensitivity', q13: '13. Above what price would you probably not consider buying this product?', q13o1: 'Over $300', q13o2: 'Over $500', q13o3: 'Over $700',
+        section6: '6. Testing interest', q14: '14. If this product enters a test phase, would you be willing to try it?', q14o1: 'Yes, I am willing to join a test', q14o2: 'No', contactTitle: 'Contact information', contactNote: '(optional unless you selected “Yes” above)', namePlaceholder: 'Name', emailPlaceholder: 'Email',
+        section7: '7. User profile', q15: '15. What is your skiing / snowboarding level?', q15o1: 'Beginner', q15o2: 'Intermediate', q15o3: 'Advanced', q16: '16. What is your primary trip mode for ski travel?', q16o1: 'Mostly flights', q16o2: 'Mostly driving', q16o3: 'Mixed', q17: '17. Age range', q18: '18. Annual income', q18note: '(optional)', q18o1: 'Under $50k', q18o2: '$50k–100k', q18o3: '$100k–200k', q18o4: 'Above $200k', feedbackTitle: 'Anything else you want us to know?', feedbackPlaceholder: 'Share any extra thoughts, must-have features, or concerns...',
+        submit: 'Submit survey', reset: 'Reset', setupNote: 'Setup note: replace the <strong>Formspree</strong> form URL in the <code>&lt;form action&gt;</code> with your own endpoint before deploying.',
+        submitError: 'Submission failed. Please double-check your Formspree form ID or try again.', networkError: 'Network error. Please try again.'
+      },
+      zh: {
+        title: '雪具运输体验调研问卷',
+        desc: '我们正在探索一款适用于机场和雪场的电动助力 / 自动跟随雪板包。问卷大约需要 3–4 分钟。你的反馈将帮助我们理解真实痛点、偏好的功能，以及可接受的价格区间。',
+        languageLabel: 'Language / 语言',
+        success: '感谢填写，问卷已成功提交。',
+        section1: '1. 基础筛选',
+        q1: '1. 你滑雪 / 单板滑雪的频率是？',
+        q2: '2. 你通常如何处理自己的雪具？',
+        q1o1: '雪季几乎每天', q1o2: '雪季 10–30 天', q1o3: '雪季 10 天以内', q1o4: '仅 1 次 / 不滑',
+        q2o1: '出行时自带雪具', q2o2: '把雪具寄存在雪场', q2o3: '租赁雪具',
+        section2: '2. 运输场景',
+        q3: '3. 你通常在哪些场景需要搬运或拖行雪板包？', q3note: '（可多选）',
+        q3o1: '机场：停车 / 下车点到值机或托运处', q3o2: '机场：行李提取到出口 / 接送区', q3o3: '雪场：停车场到缆车 / lodge', q3o4: '雪场：drop-off 到器材架 / lodge', q3o5: '酒店 / Airbnb 到雪场',
+        other: '其他', transportOther: '如选择其他，请补充说明',
+        q4: '4. 单次你通常需要移动雪板包多远？', q4o1: '100 米以内 / 328 英尺内', q4o2: '100–800 米 / 328–2,625 英尺', q4o3: '800 米以上 / 2,625 英尺以上', q4o4: '不确定',
+        q5: '5. 你的雪板包大概有多重？', q5o1: '10 kg 以下 / 22 lb 以下', q5o2: '10–25 kg / 22–55 lb', q5o3: '25 kg 以上 / 55 lb 以上', q5o4: '不清楚，但感觉很重',
+        q6: '6. 哪种搬运场景最让你困扰？', q6o1: '在机场拖着走', q6o2: '从雪场停车场走到缆车 / lodge', q6o3: '搬上车 / 从车上搬下', sceneOther: '如选择其他，请补充说明',
+        section3: '3. 痛点体验',
+        q7: '7. 整体来说，移动雪板包对你有多困难？', q7hint: '1 = 很轻松，5 = 非常痛苦',
+        q8: '8. 你遇到的最大问题是什么？', q8note: '（最多选 3 项）', q8o1: '太重，很费力', q8o2: '雪地 / 水地 / 坡面阻力大', q8o3: '穿雪鞋走路困难', q8o4: '包太长，不好控制', q8o5: '上坡困难', q8o6: '下坡不稳定', q8o7: '在人多的地方不好操作', painOther: '如选择其他，请补充说明', painError: '最多只能选择 3 项。',
+        q9: '9. 这些问题对你的体验影响有多大？', q9o1: '明显影响体验，而且很烦', q9o2: '有点不方便，但还能接受', q9o3: '基本没什么影响',
+        section4: '4. 产品概念测试', conceptTitle: '产品设想', conceptHint: '一款电动助力 / 自动跟随的雪板包，帮助你在机场和雪场运输装备时几乎不需要用力。',
+        q10: '10. 你对这个产品有多感兴趣？', q10o1: '非常感兴趣', q10o2: '有点兴趣', q10o3: '一般', q10o4: '不感兴趣',
+        q11: '11. 你会对哪种版本感兴趣？', q11note: '（可多选）', q11o1: '我自己拉，但它会自动助力', q11o2: '它可以自动跟随我', q11o3: '两种都很有价值', q11o4: '都不需要',
+        q12: '12. 你最希望在哪个场景使用这个产品？', q12note: '（最多选 2 项）', q12o1: '机场', q12o2: '雪场入口', q12o3: '停车场', q12o4: '以上场景都想用', locationError: '最多只能选择 2 项。',
+        section5: '5. 价格敏感度', q13: '13. 这个产品价格超过多少时，你大概率不会考虑购买？', q13o1: '超过 $300', q13o2: '超过 $500', q13o3: '超过 $700',
+        section6: '6. 测试意愿', q14: '14. 如果这个产品进入测试阶段，你是否愿意参与体验？', q14o1: '愿意，我愿意参加测试', q14o2: '不愿意', contactTitle: '联系信息', contactNote: '（如果上题选择“愿意”，建议填写）', namePlaceholder: '姓名', emailPlaceholder: '邮箱',
+        section7: '7. 用户画像', q15: '15. 你的滑雪 / 单板水平是？', q15o1: '初级', q15o2: '中级', q15o3: '高级', q16: '16. 你滑雪出行的主要方式是？', q16o1: '以飞机为主', q16o2: '以自驾为主', q16o3: '两者都有', q17: '17. 年龄范围', q18: '18. 年收入', q18note: '（可选）', q18o1: '$50k 以下', q18o2: '$50k–100k', q18o3: '$100k–200k', q18o4: '$200k 以上', feedbackTitle: '还有什么想告诉我们的吗？', feedbackPlaceholder: '欢迎补充你的想法、最想要的功能，或顾虑点……',
+        submit: '提交问卷', reset: '重置', setupNote: '部署前请把表单里的 <strong>Formspree</strong> 地址替换成你自己的 endpoint（修改 <code>&lt;form action&gt;</code>）。',
+        submitError: '提交失败，请检查你的 Formspree 表单 ID，或稍后再试。', networkError: '网络错误，请稍后再试。'
+      }
+    };
+
+    const form = document.getElementById('surveyForm');
+    const successMessage = document.getElementById('successMessage');
+    const gearUsageRadios = document.querySelectorAll('input[name="gear_usage"]');
+    const usageSection = document.getElementById('usageSection');
+    const painSection = document.getElementById('painSection');
+    const painCheckboxes = document.querySelectorAll('input[name="pain_points"]');
+    const locationCheckboxes = document.querySelectorAll('input[name="preferred_locations"]');
+    const painError = document.getElementById('painError');
+    const locationError = document.getElementById('locationError');
+    const testInterestRadios = document.querySelectorAll('input[name="test_interest"]');
+    const contactSection = document.getElementById('contactSection');
+    const contactEmail = document.getElementById('contactEmail');
+    const languageSelect = document.getElementById('languageSelect');
+    const selectedLanguageInput = document.getElementById('selectedLanguage');
+
+    function toggleSections() {
+      const selected = document.querySelector('input[name="gear_usage"]:checked');
+      const hideDetail = selected && selected.value === 'Rent gear';
+      usageSection.classList.toggle('hidden', hideDetail);
+      painSection.classList.toggle('hidden', hideDetail);
+      [usageSection, painSection].forEach(section => {
+        section.querySelectorAll('input').forEach(el => {
+          if (hideDetail) {
+            el.dataset.wasRequired = el.required ? 'true' : 'false';
+            el.required = false;
+          } else if (el.dataset.wasRequired === 'true') {
+            el.required = true;
+          }
+        });
+      });
+    }
+
+    gearUsageRadios.forEach(r => r.addEventListener('change', toggleSections));
+
+    function enforceMax(checkboxes, max, errorNode) {
+      const checked = [...checkboxes].filter(c => c.checked);
+      if (checked.length > max) {
+        checked[checked.length - 1].checked = false;
+        errorNode.style.display = 'block';
+        setTimeout(() => errorNode.style.display = 'none', 2200);
+      }
+    }
+
+    painCheckboxes.forEach(c => c.addEventListener('change', () => enforceMax(painCheckboxes, 3, painError)));
+    locationCheckboxes.forEach(c => c.addEventListener('change', () => enforceMax(locationCheckboxes, 2, locationError)));
+
+    function toggleContactRequirement() {
+      const selected = document.querySelector('input[name="test_interest"]:checked');
+      const needsContact = selected && selected.value === 'Yes';
+      contactEmail.required = !!needsContact;
+    }
+
+    testInterestRadios.forEach(r => r.addEventListener('change', toggleContactRequirement));
+
+    function applyLanguage(lang) {
+      const t = translations[lang] || translations.en;
+      document.documentElement.lang = lang;
+      selectedLanguageInput.value = lang;
+      document.title = t.title;
+      document.getElementById('heroTitle').innerHTML = t.title;
+      document.getElementById('heroDescription').innerHTML = t.desc;
+      document.getElementById('languageLabel').innerHTML = t.languageLabel;
+      successMessage.innerHTML = t.success;
+      document.getElementById('section1Title').innerHTML = t.section1;
+      document.getElementById('q1Title').innerHTML = t.q1;
+      document.getElementById('q2Title').innerHTML = t.q2;
+      document.getElementById('section2Title').innerHTML = t.section2;
+      document.getElementById('q3Title').childNodes[0].textContent = t.q3 + ' ';
+      document.getElementById('q3Note').innerHTML = t.q3note;
+      document.getElementById('transportOther').placeholder = t.transportOther;
+      document.getElementById('q4Title').innerHTML = t.q4;
+      document.getElementById('q5Title').innerHTML = t.q5;
+      document.getElementById('q6Title').innerHTML = t.q6;
+      document.getElementById('sceneOther').placeholder = t.sceneOther;
+      document.getElementById('section3Title').innerHTML = t.section3;
+      document.getElementById('q7Title').innerHTML = t.q7;
+      document.getElementById('q7Hint').innerHTML = t.q7hint;
+      document.getElementById('q8Title').childNodes[0].textContent = t.q8 + ' ';
+      document.getElementById('q8Note').innerHTML = t.q8note;
+      document.getElementById('painOther').placeholder = t.painOther;
+      painError.innerHTML = t.painError;
+      document.getElementById('q9Title').innerHTML = t.q9;
+      document.getElementById('section4Title').innerHTML = t.section4;
+      document.getElementById('conceptTitle').innerHTML = t.conceptTitle;
+      document.getElementById('conceptHint').innerHTML = t.conceptHint;
+      document.getElementById('q10Title').innerHTML = t.q10;
+      document.getElementById('q11Title').childNodes[0].textContent = t.q11 + ' ';
+      document.getElementById('q11Note').innerHTML = t.q11note;
+      document.getElementById('q12Title').childNodes[0].textContent = t.q12 + ' ';
+      document.getElementById('q12Note').innerHTML = t.q12note;
+      locationError.innerHTML = t.locationError;
+      document.getElementById('section5Title').innerHTML = t.section5;
+      document.getElementById('q13Title').innerHTML = t.q13;
+      document.getElementById('section6Title').innerHTML = t.section6;
+      document.getElementById('q14Title').innerHTML = t.q14;
+      document.getElementById('contactTitle').innerHTML = t.contactTitle + ' <span class="note" id="contactNote">' + t.contactNote + '</span>';
+      document.getElementById('contactName').placeholder = t.namePlaceholder;
+      contactEmail.placeholder = t.emailPlaceholder;
+      document.getElementById('section7Title').innerHTML = t.section7;
+      document.getElementById('q15Title').innerHTML = t.q15;
+      document.getElementById('q16Title').innerHTML = t.q16;
+      document.getElementById('q17Title').innerHTML = t.q17;
+      document.getElementById('q18Title').innerHTML = t.q18 + ' <span class="note" id="q18Note">' + t.q18note + '</span>';
+      document.getElementById('feedbackTitle').innerHTML = t.feedbackTitle;
+      document.getElementById('feedbackTextarea').placeholder = t.feedbackPlaceholder;
+      document.getElementById('submitButton').innerHTML = t.submit;
+      document.getElementById('resetButton').innerHTML = t.reset;
+      document.getElementById('setupNote').innerHTML = t.setupNote;
+
+      document.querySelectorAll('[data-i18n]').forEach(node => {
+        const key = node.dataset.i18n;
+        if (t[key]) node.innerHTML = t[key];
+      });
+    }
+
+    languageSelect.addEventListener('change', (e) => applyLanguage(e.target.value));
+    applyLanguage('en');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const lang = languageSelect.value;
+      const t = translations[lang] || translations.en;
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          form.reset();
+          languageSelect.value = lang;
+          applyLanguage(lang);
+          successMessage.style.display = 'block';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          alert(t.submitError);
+        }
+      } catch (err) {
+        alert(t.networkError);
+      }
+    });
+  </script>
 </body>
 </html>
