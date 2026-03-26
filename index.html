@@ -1,589 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ski Gear Transport Survey</title>
-  <style>
-    :root {
-      --bg: #f6f8fb;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --line: #dbe4ee;
-      --primary: #184e77;
-      --primary-2: #1e6091;
-      --accent: #e7f2fb;
-      --danger: #a61b1b;
-      --shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
-      --radius: 18px;
-    }
-
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: linear-gradient(180deg, #eaf4fb 0%, var(--bg) 35%, #f7fafc 100%);
-      color: var(--text);
-    }
-
-    .wrap {
-      max-width: 920px;
-      margin: 0 auto;
-      padding: 32px 20px 80px;
-    }
-
-    .hero {
-      background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      color: white;
-      border-radius: 28px;
-      padding: 34px 28px;
-      box-shadow: var(--shadow);
-      margin-bottom: 24px;
-    }
-
-    .hero h1 {
-      margin: 0 0 10px;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      line-height: 1.1;
-    }
-
-    .hero p {
-      margin: 0;
-      font-size: 1rem;
-      line-height: 1.65;
-      max-width: 760px;
-      color: rgba(255,255,255,0.94);
-    }
-
-    form {
-      display: grid;
-      gap: 18px;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 22px 20px;
-    }
-
-    .section-title {
-      font-size: 1.1rem;
-      font-weight: 800;
-      margin: 0 0 14px;
-      color: var(--primary);
-    }
-
-    .question {
-      padding: 14px 0 6px;
-      border-top: 1px solid #edf2f7;
-    }
-
-    .question:first-of-type { border-top: 0; padding-top: 0; }
-
-    .q-title {
-      font-size: 1rem;
-      font-weight: 700;
-      margin: 0 0 12px;
-      line-height: 1.5;
-    }
-
-    .hint {
-      color: var(--muted);
-      font-size: 0.92rem;
-      margin: -4px 0 12px;
-      line-height: 1.5;
-    }
-
-    .options {
-      display: grid;
-      gap: 10px;
-    }
-
-    label.option {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 12px 14px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: #fbfdff;
-      cursor: pointer;
-      transition: 0.18s ease;
-    }
-
-    label.option:hover {
-      border-color: #aac8df;
-      background: var(--accent);
-    }
-
-    input[type="radio"], input[type="checkbox"] {
-      margin-top: 2px;
-      transform: scale(1.06);
-      accent-color: var(--primary-2);
-      flex: 0 0 auto;
-    }
-
-    input[type="text"], input[type="email"], textarea, select {
-      width: 100%;
-      padding: 12px 14px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      font: inherit;
-      color: var(--text);
-      background: white;
-    }
-
-    textarea { min-height: 96px; resize: vertical; }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .subcard {
-      background: #f9fbfe;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 14px;
-      margin-top: 10px;
-    }
-
-    .actions {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      justify-content: flex-start;
-      flex-wrap: wrap;
-      padding-top: 6px;
-    }
-
-    button {
-      border: 0;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      color: white;
-      padding: 13px 22px;
-      font: inherit;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: var(--shadow);
-    }
-
-    button:hover { filter: brightness(1.03); }
-
-    .secondary {
-      background: white;
-      color: var(--primary);
-      border: 1px solid var(--line);
-      box-shadow: none;
-    }
-
-    .note {
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.6;
-    }
-
-    .hidden { display: none !important; }
-
-    .success {
-      display: none;
-      background: #ecfdf5;
-      border: 1px solid #b7e4c7;
-      color: #166534;
-      border-radius: 16px;
-      padding: 16px 18px;
-      line-height: 1.6;
-      box-shadow: var(--shadow);
-    }
-
-    .error {
-      color: var(--danger);
-      font-size: 0.92rem;
-      margin-top: 8px;
-      display: none;
-    }
-
-    @media (max-width: 720px) {
-      .grid-2 { grid-template-columns: 1fr; }
-      .hero { padding: 26px 20px; }
-      .card { padding: 18px 16px; }
-      label.option { padding: 11px 12px; }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ski Bag Survey</title>
+<style>
+body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; }
+h1 { text-align: center; }
+.question { margin-bottom: 25px; }
+.options label { display: block; margin: 5px 0; }
+button { padding: 12px 20px; font-size: 16px; }
+.lang-switch { text-align: right; margin-bottom: 20px; }
+</style>
 </head>
+
 <body>
-  <div class="wrap">
-    <section class="hero">
-      <h1>Ski Gear Transport Survey</h1>
-      <p>
-        We are exploring a power-assisted / auto-follow ski bag concept for airports and ski resorts.
-        This survey takes about 3–4 minutes. Your feedback will help us understand real pain points,
-        preferred features, and acceptable price ranges.
-      </p>
-    </section>
 
-    <div id="successMessage" class="success">
-      Thank you — your response has been submitted successfully.
-    </div>
+<div class="lang-switch">
+<select id="lang">
+<option value="zh">中文</option>
+<option value="en">English</option>
+</select>
+</div>
 
-    <form id="surveyForm" action="https://formspree.io/f/xaqlnjyw" method="POST">
-      <div class="card">
-        <h2 class="section-title">1. Basic screening</h2>
+<h1 id="title"></h1>
 
-        <div class="question">
-          <p class="q-title">1. How often do you ski / snowboard?</p>
-          <div class="options">
-            <label class="option"><input type="radio" name="ski_frequency" value="Every day in season" required>Every day in the ski season</label>
-            <label class="option"><input type="radio" name="ski_frequency" value="10-30 days">10–30 days in the ski season</label>
-            <label class="option"><input type="radio" name="ski_frequency" value="Within 10 days">10 days or fewer in the ski season</label>
-            <label class="option"><input type="radio" name="ski_frequency" value="One time or do not ski">1 time only / do not ski</label>
-          </div>
-        </div>
+<form action="https://formspree.io/f/xaqlnjyw" method="POST">
 
-        <div class="question">
-          <p class="q-title">2. How do you usually handle your ski gear?</p>
-          <div class="options">
-            <label class="option"><input type="radio" name="gear_usage" value="Bring my own gear" required>Bring my own gear when I travel</label>
-            <label class="option"><input type="radio" name="gear_usage" value="Store gear at resort">Store my gear at the resort</label>
-            <label class="option"><input type="radio" name="gear_usage" value="Rent gear">Rent gear</label>
-          </div>
-        </div>
-      </div>
+<div class="question">
+<p id="q1"></p>
+<div class="options">
+<label><input type="radio" name="q1"> <span data-zh="雪季几乎每天" data-en="Almost every day"></span></label>
+<label><input type="radio" name="q1"> <span data-zh="10–30天" data-en="10–30 days"></span></label>
+<label><input type="radio" name="q1"> <span data-zh="10天以内" data-en="Less than 10 days"></span></label>
+<label><input type="radio" name="q1"> <span data-zh="1次或不滑" data-en="Once or not at all"></span></label>
+</div>
+</div>
 
-      <div class="card" id="usageSection">
-        <h2 class="section-title">2. Transport scenarios</h2>
+<div class="question">
+<p id="q2"></p>
+<div class="options">
+<label><input type="radio" name="q2"> <span data-zh="自带雪具" data-en="Bring my own gear"></span></label>
+<label><input type="radio" name="q2"> <span data-zh="寄存雪场" data-en="Store at resort"></span></label>
+<label><input type="radio" name="q2"> <span data-zh="租赁雪具" data-en="Rent gear"></span></label>
+</div>
+</div>
 
-        <div class="question">
-          <p class="q-title">3. In which situations do you need to carry or roll your ski bag? <span class="note">(Select all that apply)</span></p>
-          <div class="options">
-            <label class="option"><input type="checkbox" name="transport_scenarios" value="Airport parking to check-in">Airport: parking / curbside to check-in or bag drop</label>
-            <label class="option"><input type="checkbox" name="transport_scenarios" value="Airport baggage claim to exit">Airport: baggage claim to exit / pickup area</label>
-            <label class="option"><input type="checkbox" name="transport_scenarios" value="Resort parking to lift or lodge">Ski resort: parking lot to lift / lodge</label>
-            <label class="option"><input type="checkbox" name="transport_scenarios" value="Drop-off to gear area">Ski resort: drop-off area to gear rack / lodge</label>
-            <label class="option"><input type="checkbox" name="transport_scenarios" value="Hotel or Airbnb to resort">Hotel / Airbnb to resort</label>
-            <label class="option"><input type="checkbox" name="transport_scenarios" value="Other">Other</label>
-          </div>
-          <div class="subcard">
-            <input type="text" name="transport_scenarios_other" placeholder="If other, please specify" />
-          </div>
-        </div>
+<div class="question">
+<p id="q11"></p>
+<div class="options" id="multi">
+<label><input type="checkbox" name="q11"> <span data-zh="电动助力" data-en="Power assist"></span></label>
+<label><input type="checkbox" name="q11"> <span data-zh="自动跟随" data-en="Auto-follow"></span></label>
+<label><input type="checkbox" name="q11"> <span data-zh="都可以" data-en="Both"></span></label>
+<label><input type="checkbox" name="q11"> <span data-zh="都不需要" data-en="None"></span></label>
+</div>
+</div>
 
-        <div class="question">
-          <p class="q-title">4. How far do you usually need to move your ski bag in one trip?</p>
-          <div class="options">
-            <label class="option"><input type="radio" name="distance" value="Within 100 m" required>Within 100 m / 328 ft</label>
-            <label class="option"><input type="radio" name="distance" value="100-800 m">100–800 m / 328–2,625 ft</label>
-            <label class="option"><input type="radio" name="distance" value=">800 m">More than 800 m / 2,625+ ft</label>
-            <label class="option"><input type="radio" name="distance" value="Not sure">Not sure</label>
-          </div>
-        </div>
+<div class="question">
+<p id="q_price"></p>
+<div class="options">
+<label><input type="radio" name="price_limit"> $300</label>
+<label><input type="radio" name="price_limit"> $500</label>
+<label><input type="radio" name="price_limit"> $700</label>
+</div>
+</div>
 
-        <div class="question">
-          <p class="q-title">5. About how heavy is your ski bag?</p>
-          <div class="options">
-            <label class="option"><input type="radio" name="bag_weight" value="Under 10 kg" required>Under 10 kg / 22 lb</label>
-            <label class="option"><input type="radio" name="bag_weight" value="10-25 kg">10–25 kg / 22–55 lb</label>
-            <label class="option"><input type="radio" name="bag_weight" value=">25 kg">More than 25 kg / 55+ lb</label>
-            <label class="option"><input type="radio" name="bag_weight" value="Not sure but feels heavy">Not sure, but it feels heavy</label>
-          </div>
-        </div>
+<div class="question">
+<p id="q_test"></p>
+<div class="options">
+<label><input type="radio" name="test"> <span data-zh="愿意" data-en="Yes"></span></label>
+<label><input type="radio" name="test"> <span data-zh="不愿意" data-en="No"></span></label>
+</div>
+</div>
 
-        <div class="question">
-          <p class="q-title">6. Which carrying scenario is the most frustrating for you?</p>
-          <div class="options">
-            <label class="option"><input type="radio" name="most_painful_scene" value="Dragging at airport" required>Dragging it through the airport</label>
-            <label class="option"><input type="radio" name="most_painful_scene" value="Parking lot to lift">From the resort parking lot to the lift / lodge</label>
-            <label class="option"><input type="radio" name="most_painful_scene" value="Loading into vehicle">Loading it into / out of a car</label>
-            <label class="option"><input type="radio" name="most_painful_scene" value="Other">Other</label>
-          </div>
-          <div class="subcard">
-            <input type="text" name="most_painful_scene_other" placeholder="If other, please specify" />
-          </div>
-        </div>
-      </div>
+<button type="submit" id="submitBtn"></button>
 
-      <div class="card" id="painSection">
-        <h2 class="section-title">3. Pain points</h2>
+</form>
 
-        <div class="question">
-          <p class="q-title">7. Overall, how difficult is it to move your ski bag?</p>
-          <p class="hint">1 = very easy, 5 = very painful</p>
-          <div class="options grid-2">
-            <label class="option"><input type="radio" name="pain_score" value="1" required>1</label>
-            <label class="option"><input type="radio" name="pain_score" value="2">2</label>
-            <label class="option"><input type="radio" name="pain_score" value="3">3</label>
-            <label class="option"><input type="radio" name="pain_score" value="4">4</label>
-            <label class="option"><input type="radio" name="pain_score" value="5">5</label>
-          </div>
-        </div>
+<script>
+const texts = {
+zh: {
+title: "雪板包运输调研",
+q1: "1. 你的滑雪频率是？",
+q2: "2. 你通常如何使用雪具？",
+q11: "3. 你更偏好哪些功能？（最多选2个）",
+q_price: "4. 该产品价格超过多少你可能不考虑购买？",
+q_test: "5. 你是否愿意参与测试？",
+submit: "提交"
+},
+en: {
+title: "Ski Bag Transport Survey",
+q1: "1. How often do you ski?",
+q2: "2. How do you usually use ski gear?",
+q11: "3. Which features do you prefer? (Select up to 2)",
+q_price: "4. At what price would you likely NOT consider buying?",
+q_test: "5. Would you join product testing?",
+submit: "Submit"
+}
+};
 
-        <div class="question">
-          <p class="q-title">8. What are the biggest issues you face? <span class="note">(Choose up to 3)</span></p>
-          <div class="options">
-            <label class="option"><input type="checkbox" name="pain_points" value="Too heavy">Too heavy / physically tiring</label>
-            <label class="option"><input type="checkbox" name="pain_points" value="Snow water slope resistance">Snow / water / slopes create resistance</label>
-            <label class="option"><input type="checkbox" name="pain_points" value="Walking in ski boots">Walking in ski boots is difficult</label>
-            <label class="option"><input type="checkbox" name="pain_points" value="Bag too long">The bag is long and hard to control</label>
-            <label class="option"><input type="checkbox" name="pain_points" value="Uphill difficulty">Going uphill is difficult</label>
-            <label class="option"><input type="checkbox" name="pain_points" value="Downhill unstable">Going downhill feels unstable</label>
-            <label class="option"><input type="checkbox" name="pain_points" value="Crowded areas">It is hard to navigate crowded areas</label>
-            <label class="option"><input type="checkbox" name="pain_points" value="Other">Other</label>
-          </div>
-          <div class="subcard">
-            <input type="text" name="pain_points_other" placeholder="If other, please specify" />
-          </div>
-          <div class="error" id="painError">Please select up to 3 options only.</div>
-        </div>
+function switchLang(lang){
+document.getElementById("title").innerText = texts[lang].title;
+document.getElementById("q1").innerText = texts[lang].q1;
+document.getElementById("q2").innerText = texts[lang].q2;
+document.getElementById("q11").innerText = texts[lang].q11;
+document.getElementById("q_price").innerText = texts[lang].q_price;
+document.getElementById("q_test").innerText = texts[lang].q_test;
+document.getElementById("submitBtn").innerText = texts[lang].submit;
 
-        <div class="question">
-          <p class="q-title">9. How much do these issues affect your experience?</p>
-          <div class="options">
-            <label class="option"><input type="radio" name="impact_level" value="Clearly affects experience" required>They clearly affect my experience and are frustrating</label>
-            <label class="option"><input type="radio" name="impact_level" value="Some inconvenience">They are inconvenient but manageable</label>
-            <label class="option"><input type="radio" name="impact_level" value="Little impact">They have little impact</label>
-          </div>
-        </div>
-      </div>
+document.querySelectorAll("span[data-zh]").forEach(el=>{
+el.innerText = el.getAttribute("data-"+lang);
+});
+}
 
-      <div class="card">
-        <h2 class="section-title">4. Product concept test</h2>
+document.getElementById("lang").addEventListener("change", e=>{
+switchLang(e.target.value);
+});
 
-        <div class="question">
-          <p class="q-title">Concept</p>
-          <p class="hint">A power-assisted / auto-follow ski bag that helps you move ski gear through airports and ski resorts with minimal physical effort.</p>
-        </div>
+switchLang("zh");
 
-        <div class="question">
-          <p class="q-title">10. How interested are you in this product?</p>
-          <div class="options">
-            <label class="option"><input type="radio" name="interest" value="Very interested" required>Very interested</label>
-            <label class="option"><input type="radio" name="interest" value="Somewhat interested">Somewhat interested</label>
-            <label class="option"><input type="radio" name="interest" value="Neutral">Neutral</label>
-            <label class="option"><input type="radio" name="interest" value="Not interested">Not interested</label>
-          </div>
-        </div>
+// 限制最多选2个
+document.querySelectorAll('#multi input').forEach(box=>{
+box.addEventListener('change',()=>{
+let checked = document.querySelectorAll('#multi input:checked');
+if(checked.length > 2){
+box.checked = false;
+alert("最多选择2项 / Max 2 options");
+}
+});
+});
+</script>
 
-        <div class="question">
-          <p class="q-title">11. Which version do you prefer?</p>
-          <div class="options">
-            <label class="option"><input type="radio" name="preferred_mode" value="Power assist" required>I pull it, but it provides power assist</label>
-            <label class="option"><input type="radio" name="preferred_mode" value="Auto follow">It can automatically follow me</label>
-            <label class="option"><input type="radio" name="preferred_mode" value="Both">Both would be valuable</label>
-            <label class="option"><input type="radio" name="preferred_mode" value="Neither">Neither</label>
-          </div>
-        </div>
-
-        <div class="question">
-          <p class="q-title">12. Where would you most want to use this product? <span class="note">(Choose up to 2)</span></p>
-          <div class="options">
-            <label class="option"><input type="checkbox" name="preferred_locations" value="Airport">Airport</label>
-            <label class="option"><input type="checkbox" name="preferred_locations" value="Resort entrance">Ski resort entrance</label>
-            <label class="option"><input type="checkbox" name="preferred_locations" value="Parking lot">Parking lot</label>
-            <label class="option"><input type="checkbox" name="preferred_locations" value="Everywhere">Everywhere above</label>
-          </div>
-          <div class="error" id="locationError">Please select up to 2 options only.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2 class="section-title">5. Price sensitivity</h2>
-
-        <div class="question">
-          <p class="q-title">13. For each price point below, how acceptable would it be to you?</p>
-
-          <div class="subcard">
-            <p class="q-title">$399</p>
-            <div class="options">
-              <label class="option"><input type="radio" name="price_399" value="Great value" required>Great value</label>
-              <label class="option"><input type="radio" name="price_399" value="Acceptable">Acceptable</label>
-              <label class="option"><input type="radio" name="price_399" value="A bit expensive">A bit expensive</label>
-              <label class="option"><input type="radio" name="price_399" value="Too expensive">Too expensive</label>
-            </div>
-          </div>
-
-          <div class="subcard">
-            <p class="q-title">$699</p>
-            <div class="options">
-              <label class="option"><input type="radio" name="price_699" value="Great value" required>Great value</label>
-              <label class="option"><input type="radio" name="price_699" value="Acceptable">Acceptable</label>
-              <label class="option"><input type="radio" name="price_699" value="A bit expensive">A bit expensive</label>
-              <label class="option"><input type="radio" name="price_699" value="Too expensive">Too expensive</label>
-            </div>
-          </div>
-
-          <div class="subcard">
-            <p class="q-title">$999</p>
-            <div class="options">
-              <label class="option"><input type="radio" name="price_999" value="Great value" required>Great value</label>
-              <label class="option"><input type="radio" name="price_999" value="Acceptable">Acceptable</label>
-              <label class="option"><input type="radio" name="price_999" value="A bit expensive">A bit expensive</label>
-              <label class="option"><input type="radio" name="price_999" value="Too expensive">Too expensive</label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2 class="section-title">6. Testing interest</h2>
-
-        <div class="question">
-          <p class="q-title">14. If this product enters a test phase, would you be willing to try it?</p>
-          <div class="options">
-            <label class="option"><input type="radio" name="test_interest" value="Yes" required>Yes, I am willing to join a test</label>
-            <label class="option"><input type="radio" name="test_interest" value="No">No</label>
-          </div>
-        </div>
-
-        <div class="question" id="contactSection">
-          <p class="q-title">Contact information <span class="note">(optional unless you selected “Yes” above)</span></p>
-          <div class="grid-2">
-            <input type="text" name="contact_name" placeholder="Name" />
-            <input type="email" name="contact_email" placeholder="Email" />
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2 class="section-title">7. User profile</h2>
-
-        <div class="question">
-          <p class="q-title">15. What is your skiing / snowboarding level?</p>
-          <div class="options">
-            <label class="option"><input type="radio" name="skill_level" value="Beginner" required>Beginner</label>
-            <label class="option"><input type="radio" name="skill_level" value="Intermediate">Intermediate</label>
-            <label class="option"><input type="radio" name="skill_level" value="Advanced">Advanced</label>
-          </div>
-        </div>
-
-        <div class="question">
-          <p class="q-title">16. What is your primary trip mode for ski travel?</p>
-          <div class="options">
-            <label class="option"><input type="radio" name="travel_mode" value="Mostly flights" required>Mostly flights</label>
-            <label class="option"><input type="radio" name="travel_mode" value="Mostly driving">Mostly driving</label>
-            <label class="option"><input type="radio" name="travel_mode" value="Mixed">Mixed</label>
-          </div>
-        </div>
-
-        <div class="question">
-          <p class="q-title">17. Age range</p>
-          <div class="options">
-            <label class="option"><input type="radio" name="age_range" value="18-25" required>18–25</label>
-            <label class="option"><input type="radio" name="age_range" value="26-30">26–30</label>
-            <label class="option"><input type="radio" name="age_range" value="31-40">31–40</label>
-            <label class="option"><input type="radio" name="age_range" value="40+">40+</label>
-          </div>
-        </div>
-
-        <div class="question">
-          <p class="q-title">18. Annual income <span class="note">(optional)</span></p>
-          <div class="options">
-            <label class="option"><input type="radio" name="income" value="<50k">Under $50k</label>
-            <label class="option"><input type="radio" name="income" value="50-100k">$50k–100k</label>
-            <label class="option"><input type="radio" name="income" value="100-200k">$100k–200k</label>
-            <label class="option"><input type="radio" name="income" value=">200k">Above $200k</label>
-          </div>
-        </div>
-
-        <div class="question">
-          <p class="q-title">Anything else you want us to know?</p>
-          <textarea name="open_feedback" placeholder="Share any extra thoughts, must-have features, or concerns..."></textarea>
-        </div>
-      </div>
-
-      <div class="actions">
-        <button type="submit">Submit survey</button>
-        <button type="reset" class="secondary">Reset</button>
-      </div>
-      <p class="note">Setup note: replace the <strong>Formspree</strong> form URL in the <code>&lt;form action&gt;</code> with your own endpoint before deploying.</p>
-    </form>
-  </div>
-
-  <script>
-    const form = document.getElementById('surveyForm');
-    const successMessage = document.getElementById('successMessage');
-    const gearUsageRadios = document.querySelectorAll('input[name="gear_usage"]');
-    const usageSection = document.getElementById('usageSection');
-    const painSection = document.getElementById('painSection');
-    const painCheckboxes = document.querySelectorAll('input[name="pain_points"]');
-    const locationCheckboxes = document.querySelectorAll('input[name="preferred_locations"]');
-    const painError = document.getElementById('painError');
-    const locationError = document.getElementById('locationError');
-    const testInterestRadios = document.querySelectorAll('input[name="test_interest"]');
-    const contactSection = document.getElementById('contactSection');
-    const contactEmail = document.querySelector('input[name="contact_email"]');
-
-    function toggleSections() {
-      const selected = document.querySelector('input[name="gear_usage"]:checked');
-      const hideDetail = selected && selected.value === 'Rent gear';
-      usageSection.classList.toggle('hidden', hideDetail);
-      painSection.classList.toggle('hidden', hideDetail);
-      usageSection.querySelectorAll('input').forEach(el => {
-        if (hideDetail) {
-          el.dataset.wasRequired = el.required ? 'true' : 'false';
-          el.required = false;
-        } else if (el.dataset.wasRequired === 'true') {
-          el.required = true;
-        }
-      });
-      painSection.querySelectorAll('input').forEach(el => {
-        if (hideDetail) {
-          el.dataset.wasRequired = el.required ? 'true' : 'false';
-          el.required = false;
-        } else if (el.dataset.wasRequired === 'true') {
-          el.required = true;
-        }
-      });
-    }
-
-    gearUsageRadios.forEach(r => r.addEventListener('change', toggleSections));
-
-    function enforceMax(checkboxes, max, errorNode) {
-      const checked = [...checkboxes].filter(c => c.checked);
-      if (checked.length > max) {
-        checked[checked.length - 1].checked = false;
-        errorNode.style.display = 'block';
-        setTimeout(() => errorNode.style.display = 'none', 2200);
-      }
-    }
-
-    painCheckboxes.forEach(c => c.addEventListener('change', () => enforceMax(painCheckboxes, 3, painError)));
-    locationCheckboxes.forEach(c => c.addEventListener('change', () => enforceMax(locationCheckboxes, 2, locationError)));
-
-    function toggleContactRequirement() {
-      const selected = document.querySelector('input[name="test_interest"]:checked');
-      const needsContact = selected && selected.value === 'Yes';
-      contactEmail.required = !!needsContact;
-    }
-
-    testInterestRadios.forEach(r => r.addEventListener('change', toggleContactRequirement));
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-
-      try {
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: formData,
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (response.ok) {
-          form.reset();
-          successMessage.style.display = 'block';
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else {
-          alert('Submission failed. Please double-check your Formspree form ID or try again.');
-        }
-      } catch (err) {
-        alert('Network error. Please try again.');
-      }
-    });
-  </script>
 </body>
 </html>
